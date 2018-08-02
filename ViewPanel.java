@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
@@ -17,6 +18,9 @@ public class ViewPanel extends JPanel implements ChangeListener{
 	private GregorianCalendar calendar; 
 	private DataModel events; 
 	
+	private JComponent gridContainer; 
+	private JScrollPane scroll; 
+	private JPanel eventGrid; 
 	
 	public ViewPanel(ViewStrategy v, GregorianCalendar c, DataModel d)
 	{
@@ -29,7 +33,7 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		
 	
 		//Create Grid showing events
-		JPanel eventGrid = new JPanel()
+		/*JPanel*/ eventGrid = new JPanel()
 				{
 					public void paintComponent(Graphics g)
 					{
@@ -47,7 +51,7 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		//Set up a scroll panel and add eventGrid
 		int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 		int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
-		JScrollPane scroll = new JScrollPane(eventGrid, verticalPolicy, horizontalPolicy); 
+		/*JScrollPane*/ scroll = new JScrollPane(eventGrid, verticalPolicy, horizontalPolicy); 
 		scroll.setMinimumSize(new Dimension(1000,840));
 		scroll.setPreferredSize(new Dimension(1000,840));
 		
@@ -64,14 +68,49 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		
 		header.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		header.setBackground(Color.WHITE);
-		
+	
 		header.setPreferredSize(new Dimension(this.getWidth(), 50));
 		header.setMinimumSize(new Dimension(this.getWidth(), 50));
+		//header.setMaximumSize(new Dimension(this.getWidth(), 50));
 		
-		this.add(header); 
-		this.add(scroll);
-	}
 
+		this.add(header);
+		this.add(scroll); 
+	
+//		if (viewStrat.needsScroll()) {
+//			gridContainer = scroll; 
+//		}
+//		else
+//		{
+//			 gridContainer = eventGrid; 
+//		}
+//	
+//		this.add(gridContainer); 
+	
+	}
+	
+//	public void paintComponent(Graphics g)
+//	{
+//		super.paintComponent(g);
+//		
+//		this.remove(gridContainer);
+//		
+//		if (viewStrat.needsScroll()) {
+//			gridContainer = scroll; 
+//		}
+//		else
+//		{
+//		 gridContainer = eventGrid; 
+//		}
+//	
+//		this.add(gridContainer); 
+//		this.revalidate(); 
+//		this.repaint(); 
+//		
+//		
+		
+//}
+	
 	public void changeView(ViewStrategy v)
 	{
 		viewStrat = v; 
